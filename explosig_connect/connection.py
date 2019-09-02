@@ -46,11 +46,11 @@ class Connection:
         r_index.raise_for_status()
         r_columns.raise_for_status()
 
-        full_df = pd.DataFrame(data=r_data.json())
-        full_df = full_df.set_index(index_col)
-
-        df = pd.DataFrame(data=[], index=r_index.json(), columns=r_index.columns())
-        df = df.join(full_df, how='inner')
+        df = pd.DataFrame(data=r_data.json())
+        df = df.set_index(index_col)
+        
+        index_df = pd.DataFrame(data=[], index=r_index.json(), columns=r_columns.json())
+        df = df.reindex_like(index_df)
 
         return df
     
@@ -60,7 +60,7 @@ class Connection:
             '/scale-samples', 
             '/scale-contexts', 
             'sample_id', 
-            { 'mut_type': mut_type }
+            mut_type=mut_type,
         )
 
     def post(self, data):
