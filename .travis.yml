@@ -1,7 +1,8 @@
 language: python
 python:
-  - "3.7"
+  - "3.6"
 install:
   - python -m pip install --upgrade setuptools wheel
 script:
   - python setup.py sdist bdist_wheel
+  - pip install .
