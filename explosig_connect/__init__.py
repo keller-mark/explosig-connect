@@ -1,1 +1,1 @@
-name = "explosig_connect"
+from .connect import connect
