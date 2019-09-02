@@ -37,3 +37,10 @@ Build and install from the current directory.
 python setup.py sdist bdist_wheel
 pip install .
 ```
+
+Use the `hostname` parameter to specify a custom ExploSig instance.
+There is also a `password` parameter to enable usage with protected instances.
+
+```python
+>>> conn = connect(conn_id, hostname='http://localhost:8100')
+```
