@@ -8,10 +8,10 @@ def login(password, hostname):
     r.raise_for_status()
     return r.json()['token']
 
-def connect(conn_id, password=None, hostname=HOSTNAME):
+def connect(session_id, password=None, hostname=HOSTNAME):
     if password != None and hostname != HOSTNAME:
         token = login(password, hostname)
     else:
         token = None
     
-    return Connection(conn_id, token, hostname)
+    return Connection(session_id, token, hostname)

@@ -15,9 +15,9 @@ pip install explosig-connect
 ```python
 >>> from explosig_connect import connect
 
->>> # Connect using a session connection ID supplied by ExploSig.
->>> conn_id = 'af6242f3'
->>> conn = connect(conn_id)
+>>> # Connect using a session ID supplied by ExploSig.
+>>> session_id = 'af6242f3'
+>>> conn = connect(session_id)
 
 >>> # Obtain the SBS mutation counts matrix associated with the session.
 >>> sbs_counts_df = conn.get_counts_by_category('SBS')
@@ -42,5 +42,5 @@ Use the `hostname` parameter to specify a custom ExploSig instance.
 There is also a `password` parameter to enable usage with protected instances.
 
 ```python
->>> conn = connect(conn_id, hostname='http://localhost:8100')
+>>> conn = connect(session_id, hostname='http://localhost:8100')
 ```

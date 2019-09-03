@@ -4,8 +4,8 @@ import pandas as pd
 
 class Connection:
 
-    def __init__(self, conn_id, token, hostname):
-        self.conn_id = conn_id
+    def __init__(self, session_id, token, hostname):
+        self.session_id = session_id
         self.token = token
         self.hostname = hostname
 
@@ -13,7 +13,7 @@ class Connection:
 
     def get_config(self):
         payload = {
-            'conn_id': self.conn_id,
+            'session_id': self.session_id,
             'token': self.token,
         }
         r = requests.post(self.hostname + '/session-get', data=json.dumps(payload))
@@ -48,7 +48,7 @@ class Connection:
 
         df = pd.DataFrame(data=r_data.json())
         df = df.set_index(index_col)
-        
+
         index_df = pd.DataFrame(data=[], index=r_index.json(), columns=r_columns.json())
         df = df.reindex_like(index_df)
 
@@ -65,7 +65,7 @@ class Connection:
 
     def post(self, data):
         payload = {
-            'conn_id': self.conn_id,
+            'session_id': self.session_id,
             'token': self.token,
             'data': data,
         }
