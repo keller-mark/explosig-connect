@@ -1,5 +1,5 @@
 import requests
-from .connection import Connection
+from .connection import EmptyConnection, ConfigConnection
 
 HOSTNAME = 'https://explosig.lrgr.io'
 
@@ -8,10 +8,15 @@ def login(password, hostname):
     r.raise_for_status()
     return r.json()['token']
 
-def connect(session_id, password=None, hostname=HOSTNAME):
+def connect(session_id=None, password=None, hostname=HOSTNAME, how='auto'):
     if password != None and hostname != HOSTNAME:
         token = login(password, hostname)
     else:
         token = None
-    
-    return Connection(session_id, token, hostname)
+
+    if session_id == None:
+        conn = EmptyConnection(token, hostname)
+        conn.open(how=how)
+        return conn
+    else:
+        return ConfigConnection(session_id, token, hostname)

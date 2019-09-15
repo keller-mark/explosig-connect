@@ -1,8 +1,24 @@
 import requests
 import json
+import uuid
+import webbrowser
 import pandas as pd
 
 class Connection:
+    
+    def post(self, data):
+        payload = {
+            'session_id': self.session_id,
+            'token': self.token,
+            'data': data,
+        }
+        r = requests.post(self.hostname + '/session-post', data=json.dumps(payload))
+        r.raise_for_status()
+        response = r.json()
+        return response
+    
+
+class ConfigConnection(Connection):
 
     def __init__(self, session_id, token, hostname):
         self.session_id = session_id
@@ -63,14 +79,35 @@ class Connection:
             mut_type=mut_type,
         )
 
-    def post(self, data):
-        payload = {
-            'session_id': self.session_id,
-            'token': self.token,
-            'data': data,
-        }
-        r = requests.post(self.hostname + '/session-post', data=json.dumps(payload))
-        r.raise_for_status()
-        response = r.json()
-        return response
+class EmptyConnection(Connection):
+
+    def __init__(self, token, hostname):
+        self.session_id = str(uuid.uuid4())[:12]
+        self.token = token
+        self.hostname = hostname
+    
+    def open(self, how='auto'):
+        assert(how in {'auto', 'nb_js', 'nb_link', 'browser'})
+
+        url = self.hostname + '/#session-' + self.session_id
+
+        if how in {'auto', 'browser'}:
+            opened = webbrowser.open(url)
+            if opened or how == 'browser':
+                return
+        try:
+            from IPython import get_ipython
+            if how in {'auto', 'nb_js'}:
+                from IPython.display import display, Javascript
+                js_block = "window.open('{}');".format(url)
+                display(Javascript(js_block))
+                return
+            if how in {'auto', 'nb_link'}:
+                from IPython.display import display, HTML
+                html_block = "<a href='{}' target='_blank'>{}</a>".format(url, url)
+                display(HTML(html_block))
+                return
+        except ImportError:
+            print("Open the ExploSig session here: {}".format(url))
+            return
 
