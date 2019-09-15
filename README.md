@@ -10,7 +10,7 @@ Helpers for sending data from a Python environment to [ExploSig](https://github.
 pip install explosig-connect
 ```
 
-### Example Usage
+### Example Usage - Connecting to an existing session
 
 ```python
 >>> from explosig_connect import connect
@@ -27,6 +27,25 @@ pip install explosig-connect
 
 >>> # Send the new exposures back to ExploSig for visualization.
 >>> conn.send_exposures('SBS', exposures_df)
+```
+
+### Example Usage - Starting a new session
+
+```python
+>>> from explosig_connect import connect
+
+>>> # Start a new 'empty' session with no samples, signatures, etc. selected.
+>>> # This will attempt to open ExploSig in a new browser tab that starts the session.
+>>> conn = connect()
+
+>>> # Send an SBS mutation counts matrix to visualize.
+>>> conn.send_counts('SBS', my_sbs_counts_df)
+
+>>> # Send an exposures matrix to visualize.
+>>> conn.send_exposures('SBS', my_sbs_exposures_df)
+
+>>> # Send a signatures matrix to visualize.
+>>> conn.send_signatures('SBS', my_sbs_signatures_df)
 ```
 
 ### Development
