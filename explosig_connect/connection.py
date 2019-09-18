@@ -12,7 +12,7 @@ class Connection:
             'token': self.token,
             'data': data,
         }
-        r = requests.post(self.hostname + '/session-post', data=json.dumps(payload))
+        r = requests.post(self.server_hostname + '/session-post', data=json.dumps(payload))
         r.raise_for_status()
         response = r.json()
         return response
@@ -20,10 +20,11 @@ class Connection:
 
 class ConfigConnection(Connection):
 
-    def __init__(self, session_id, token, hostname):
+    def __init__(self, session_id, token, server_hostname, client_hostname):
         self.session_id = session_id
         self.token = token
-        self.hostname = hostname
+        self.server_hostname = server_hostname
+        self.client_hostname = client_hostname
 
         self.config = self.get_config()
 
@@ -32,7 +33,7 @@ class ConfigConnection(Connection):
             'session_id': self.session_id,
             'token': self.token,
         }
-        r = requests.post(self.hostname + '/session-get', data=json.dumps(payload))
+        r = requests.post(self.server_hostname + '/session-get', data=json.dumps(payload))
         r.raise_for_status()
         return json.loads(r.json()['state'])['config']
     
@@ -54,9 +55,9 @@ class ConfigConnection(Connection):
             elif mut_type == 'INDEL':
                 payload['signatures'] = self.config['signaturesIndel']
         
-        r_data = requests.post(self.hostname + data_path, data=json.dumps(payload))
-        r_index = requests.post(self.hostname + index_path, data=json.dumps(payload))
-        r_columns = requests.post(self.hostname + columns_path, data=json.dumps(payload))
+        r_data = requests.post(self.server_hostname + data_path, data=json.dumps(payload))
+        r_index = requests.post(self.server_hostname + index_path, data=json.dumps(payload))
+        r_columns = requests.post(self.server_hostname + columns_path, data=json.dumps(payload))
 
         r_data.raise_for_status()
         r_index.raise_for_status()
@@ -81,15 +82,16 @@ class ConfigConnection(Connection):
 
 class EmptyConnection(Connection):
 
-    def __init__(self, token, hostname):
-        self.session_id = str(uuid.uuid4())[:12]
+    def __init__(self, token, server_hostname, client_hostname):
+        self.session_id = str(uuid.uuid4())[:8]
         self.token = token
-        self.hostname = hostname
+        self.server_hostname = server_hostname
+        self.client_hostname = client_hostname
     
     def open(self, how='auto'):
         assert(how in {'auto', 'nb_js', 'nb_link', 'browser'})
 
-        url = self.hostname + '/#session-' + self.session_id
+        url = self.client_hostname + '/#session-' + self.session_id
 
         if how in {'auto', 'browser'}:
             opened = webbrowser.open(url)
