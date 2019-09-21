@@ -17,6 +17,46 @@ class Connection:
         response = r.json()
         return response
     
+    def send_sample_metadata(self, df):
+        # df = samples x [ Study ]
+        df.index = df.index.rename("sample_id")
+        df = df.reset_index()
+        df = df.rename(columns={"Study": "proj_id"})
+        if "Donor" in df.columns.values.tolist():
+            df = df.rename(columns={"Donor": "donor_id"})
+
+        self.post({
+            "data": {
+                "data": {
+                    "sample_meta": df.to_dict('records')
+                },
+                "scales": {
+                    "sample_id": df["sample_id"].values.tolist(),
+                    "proj_id": df["proj_id"].unique().tolist(),
+                }
+            }
+        })
+    
+    def send_mutation_type_counts(self, df):
+        # df = samples x [ SBS, DBS, INDEL ]
+        df.index = df.index.rename("sample_id")
+        mut_count_max = df.max().max()
+        mut_count_sum_max = df.sum(axis=1).max()
+        df = df.reset_index()
+
+        self.post({
+            "data": {
+                "data": {
+                    "mut_count": df.to_dict('records')
+                },
+                "scales": {
+                    "mut_count": [0, int(mut_count_max)],
+                    "mut_count_sum": [0, int(mut_count_sum_max)]
+                }
+            }
+        })
+
+    
 
 class ConfigConnection(Connection):
 
@@ -82,13 +122,15 @@ class ConfigConnection(Connection):
 
 class EmptyConnection(Connection):
 
-    def __init__(self, token, server_hostname, client_hostname):
-        self.session_id = str(uuid.uuid4())[:8]
+    def __init__(self, session_id, token, server_hostname, client_hostname):
+        self.session_id = str(uuid.uuid4())[:8] if session_id == None else session_id[:8]
         self.token = token
         self.server_hostname = server_hostname
         self.client_hostname = client_hostname
     
     def open(self, how='auto'):
+        if how == None:
+            return
         assert(how in {'auto', 'nb_js', 'nb_link', 'browser'})
 
         url = self.client_hostname + '/#session-' + self.session_id
