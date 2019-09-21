@@ -3,10 +3,13 @@ import json
 import uuid
 import webbrowser
 import pandas as pd
+import numpy as np
 
 class Connection:
     
     def post(self, data):
+        print(data) # TODO: for debugging, remove 
+        print()
         payload = {
             'session_id': self.session_id,
             'token': self.token,
@@ -40,8 +43,8 @@ class Connection:
     def send_mutation_type_counts(self, df):
         # df = samples x [ SBS, DBS, INDEL ]
         df.index = df.index.rename("sample_id")
-        mut_count_max = df.max().max()
-        mut_count_sum_max = df.sum(axis=1).max()
+        mut_count_max = int(df.max().max())
+        mut_count_sum_max = int(df.sum(axis=1).max())
         df = df.reset_index()
 
         self.post({
@@ -50,8 +53,85 @@ class Connection:
                     "mut_count": df.to_dict('records')
                 },
                 "scales": {
-                    "mut_count": [0, int(mut_count_max)],
-                    "mut_count_sum": [0, int(mut_count_sum_max)]
+                    "mut_count": [0, mut_count_max],
+                    "mut_count_sum": [0, mut_count_sum_max]
+                }
+            }
+        })
+    
+    def send_signatures(self, mut_type, df, prob_max=None):
+        assert(mut_type in {'SBS', 'DBS', 'INDEL'})
+        # df = signatures x categories
+        if prob_max == 'auto':
+            sig_prob_max = float(df.max().max())
+        else:
+            sig_prob_max = 0.2
+
+        df.index = df.index.rename("sig_{}".format(mut_type))
+
+        self.post({
+            "data": {
+                "scales": {
+                    "cat_{}".format(mut_type): df.columns.values.tolist()
+                }
+            }
+        })
+
+        self.post({
+            "data": {
+                "scales": {
+                    "sig_{}".format(mut_type): df.index.values.tolist()
+                }
+            }
+        })
+
+        self.post({
+            "data": {
+                "data": dict([
+                    ("sig_{}_{}".format(mut_type, sig_i), df.loc[sig_name, :].to_frame(name="sig_prob_{}".format(mut_type)).reset_index().rename(columns={'index': "cat_{}".format(mut_type)}).to_dict('records')) for sig_i, sig_name in enumerate(df.index.values.tolist())
+                ]),
+                "scales": {
+                    "sig_prob_{}".format(mut_type): [0.0, sig_prob_max]
+                }
+            }
+        })
+    
+    def send_exposures(self, mut_type, df, send_sigs=False):
+        assert(mut_type in {'SBS', 'DBS', 'INDEL'})
+        # df = samples x signatures
+
+        if send_sigs:
+            self.post({
+                "data": {
+                    "scales": {
+                        "sig_{}".format(mut_type): df.columns.values.tolist(),
+                    }
+                }
+            })
+        
+        mut_type = mut_type.lower() # Deal with inconsistent naming conventions
+        df.index = df.index.rename("sample_id")
+        exp_max = float(df.max().max())
+        exp_sum_max = float(df.sum(axis=1).max())
+
+        norm_df = pd.DataFrame(
+            index=df.index.values.tolist(), 
+            columns=df.columns.values.tolist(), 
+            data=(df.values / df.values.sum(axis=1, keepdims=True))
+        )
+        norm_df.index = norm_df.index.rename("sample_id")
+        exp_norm_max = float(norm_df.max().max())
+
+        self.post({
+            "data": {
+                "data": {
+                    "exposure_{}".format(mut_type): df.reset_index().to_dict('records'),
+                    "exposure_{}_normalized".format(mut_type): norm_df.reset_index().to_dict('records'),
+                },
+                "scales": {
+                    "exposure_{}".format(mut_type): [0.0, exp_max],
+                    "exposure_sum_{}".format(mut_type): [0.0, exp_sum_max],
+                    "exposure_{}_normalized".format(mut_type): [0.0, exp_norm_max],
                 }
             }
         })
@@ -111,7 +191,7 @@ class ConfigConnection(Connection):
 
         return df
     
-    def get_counts_by_category(self, mut_type):
+    def get_mutation_type_counts(self, mut_type):
         return self.get_df(
             '/plot-counts-by-category', 
             '/scale-samples', 
