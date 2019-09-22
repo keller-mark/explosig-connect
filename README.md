@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/keller-mark/explosig-connect.svg?branch=master)](https://travis-ci.org/keller-mark/explosig-connect)
+![PyPI](https://img.shields.io/pypi/v/explosig-connect)
 
 ## ExploSig Connect
 
