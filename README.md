@@ -20,7 +20,7 @@ pip install explosig-connect
 >>> conn = connect(session_id)
 
 >>> # Obtain the SBS mutation counts matrix associated with the session.
->>> sbs_counts_df = conn.get_counts_by_category('SBS')
+>>> sbs_counts_df = conn.get_mutation_type_counts('SBS')
 
 >>> # You run some custom code to derive better signature exposures.
 >>> exposures_df = my_exposures_computation_method(sbs_counts_df)
@@ -39,7 +39,7 @@ pip install explosig-connect
 >>> conn = connect()
 
 >>> # Send an SBS mutation counts matrix to visualize.
->>> conn.send_counts('SBS', my_sbs_counts_df)
+>>> conn.send_mutation_type_counts('SBS', my_sbs_counts_df)
 
 >>> # Send an exposures matrix to visualize.
 >>> conn.send_exposures('SBS', my_sbs_exposures_df)
