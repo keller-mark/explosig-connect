@@ -34,14 +34,15 @@ def connect(session_id=None, empty=False, password=None, server_hostname=SERVER_
         by default `'https://explosig.lrgr.io'`
     how : `str`, optional
         If starting a new empty session, 
-        the method for opening in the browser, 
+        the method for opening in the browser,
+        passed to `explosig_connect.connection.EmptyConnection.open`.
         by default `'auto'`
     
     Returns
     -------
-    `explosig_connect.Connection`
-        Returns an object of a Connection subclass: `explosig_connect.EmptyConnection` 
-        if starting a new "empty" session, or `explosig_connect.ConfigConnection` 
+    `explosig_connect.connection.Connection`
+        Returns an object of a Connection subclass: `explosig_connect.connection.EmptyConnection` 
+        if starting a new "empty" session, or `explosig_connect.connection.ConfigConnection` 
         if connecting to an existing session that has been configured and started 
         from within ExploSig.
     """
