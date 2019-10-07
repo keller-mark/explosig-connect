@@ -10,6 +10,41 @@ def login(password, server_hostname):
     return r.json()['token']
 
 def connect(session_id=None, empty=False, password=None, server_hostname=SERVER_HOSTNAME, client_hostname=CLIENT_HOSTNAME, how='auto'):
+    """Connect to an ExploSig session.
+    
+    Parameters
+    ----------
+    session_id : `str`, optional
+        An ExploSig session ID.
+        If not provided, a new "empty" session will be started. 
+        by default `None`
+    empty : `bool`, optional
+        If `True`, will open an "empty" session regardless of whether 
+        `session_id` is provided.
+        by default `False`
+    password : `str`, optional
+        Required if not using the public instance of ExploSig and instead using
+        a password-protected instance.
+        by default `None`
+    server_hostname : `str`, optional
+        Use to specify an alternate ExploSig server instance.
+        by default `'https://explosig-server.lrgr.io'`
+    client_hostname : `str`, optional
+        Use to specify an alternate ExploSig client instance.
+        by default `'https://explosig.lrgr.io'`
+    how : `str`, optional
+        If starting a new empty session, 
+        the method for opening in the browser, 
+        by default `'auto'`
+    
+    Returns
+    -------
+    `explosig_connect.Connection`
+        Returns an object of a Connection subclass: `explosig_connect.EmptyConnection` 
+        if starting a new "empty" session, or `explosig_connect.ConfigConnection` 
+        if connecting to an existing session that has been configured and started 
+        from within ExploSig.
+    """
     if password != None and server_hostname != SERVER_HOSTNAME:
         token = login(password, server_hostname)
     else:
