@@ -25,7 +25,15 @@ class Connection:
         return response
     
     def send_sample_metadata(self, df):
-        # df = samples x [ Study ]
+        """Send a dataframe containing sample metadata values to ExploSig.
+        
+        Parameters
+        ----------
+        df : `pandas.DataFrame`
+            Dataframe with index of sample IDs. Columns are metadata variables.
+            The following are recognized column names: {`Study`, `Donor`}.
+        """
+
         df.index = df.index.rename("sample_id")
         df = df.reset_index()
         df = df.rename(columns={"Study": "proj_id"})
@@ -145,13 +153,13 @@ class Connection:
         
         Parameters
         ----------
-        df : pandas.DataFrame
+        df : `pandas.DataFrame`
             Dataframe with index of sample IDs. Columns are clinical variables.
-        types : dict, optional
+        types : `dict`, optional
             A dict mapping column names to data types ('continuous' or 'categorical'), by default {}
             If a column name is not found in the dict, it is assumed that 
             numeric columns are continuous and string columns are categorical.
-        scales : dict, optional
+        scales : `dict`, optional
             A dict mapping column names to scale domains, by default {}
             If a column name is not found in the dict, it is assumed that 
             categorical column scales are simply a list of unique elements
