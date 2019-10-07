@@ -3,6 +3,7 @@ import json
 import uuid
 import webbrowser
 import pandas as pd
+from pandas.api.types import is_numeric_dtype
 
 class Connection:
     
@@ -87,7 +88,7 @@ class Connection:
         self.post({
             "data": {
                 "data": dict([
-                    ("sig_{}_{}".format(mut_type, sig_i), df.loc[sig_name, :].to_frame(name="sig_prob_{}".format(mut_type)).reset_index().rename(columns={'index': "cat_{}".format(mut_type)}).to_dict('records')) for sig_i, sig_name in enumerate(df.index.values.tolist())
+                    ("sig_{}_{}".format(mut_type, sig_name), df.loc[sig_name, :].to_frame(name="sig_prob_{}".format(mut_type)).reset_index().rename(columns={'index': "cat_{}".format(mut_type)}).to_dict('records')) for sig_name in df.index.values.tolist()
                 ]),
                 "scales": {
                     "sig_prob_{}".format(mut_type): [0.0, sig_prob_max]
@@ -132,6 +133,67 @@ class Connection:
                     "exposure_sum_{}".format(mut_type): [0.0, exp_sum_max],
                     "exposure_{}_normalized".format(mut_type): [0.0, exp_norm_max],
                 }
+            }
+        })
+    
+    def send_clinical_data(self, df, types={}, scales={}):
+        """Send a dataframe containing clinical data.
+        
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            df = samples x clinical variables
+            Index consists of sample IDs. Columns are clinical variables.
+        types : dict, optional
+            A dict mapping column names to data types ('continuous' or 'categorical'), by default {}
+            If a column name is not found in the dict, it is assumed that 
+            numeric columns are continuous and string columns are categorical.
+        scales : dict, optional
+            A dict mapping column names to scale domains, by default {}
+            If a column name is not found in the dict, it is assumed that 
+            categorical column scales are simply a list of unique elements
+            and continuous column scales are [min, max].
+        """
+
+        all_types = {}
+        for col_name in df.columns.values.tolist():
+            if col_name in types.keys():
+                # check schema of types dict
+                assert(types[col_name].lower() in {'continuous', 'categorical'})
+                all_types[col_name] = types[col_name].lower()
+            else:
+                all_types[col_name] = 'continuous' if is_numeric_dtype(df[col_name]) else 'categorical'
+        
+        df.index = df.index.rename("sample_id")
+  
+        self.post({
+            "data": {
+                "data": {
+                    "clinical_variable_type": [ {'variable': col_name, 'type': var_type} for col_name, var_type in all_types.items() ]
+                },
+                "scales": {
+                    "clinical_variable": df.columns.values.tolist()
+                }
+            }
+        })
+
+        all_scales = {}
+        
+        for col_name, var_type in all_types.items():
+            if col_name in scales.keys():
+                # User provided the scale as a parameter
+                all_scales[col_name] = scales[col_name]
+            elif var_type == 'categorical':
+                all_scales[col_name] = df[col_name].unique().tolist()
+            elif var_type == 'continuous':
+                all_scales[col_name] = [float(df[col_name].min()), float(df[col_name].max())]
+
+        self.post({
+            "data": {
+                "data": {
+                    "clinical_data": df.reset_index().to_dict('records')
+                },
+                "scales": all_scales
             }
         })
 

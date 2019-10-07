@@ -30,3 +30,10 @@ df = pd.DataFrame(index=["SA 01", "SA 02", "SA 03"], columns=["COSMIC 01", "COSM
     {"COSMIC 01": 100, "COSMIC 02": 300, "COSMIC 03": 200},
 ])
 conn.send_exposures('SBS', df)
+
+df = pd.DataFrame(index=["SA 01", "SA 02", "SA 03"], columns=["Diagnosis Age", "Overall Survival", "Sex"], data=[
+    {"Diagnosis Age": 66, "Overall Survival": 273, "Sex": "Male"},
+    {"Diagnosis Age": 82, "Overall Survival": 812, "Sex": "Female"},
+    {"Diagnosis Age": 43, "Overall Survival": 400, "Sex": "Male"},
+])
+conn.send_clinical_data(df)

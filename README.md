@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/keller-mark/explosig-connect.svg?branch=master)](https://travis-ci.org/keller-mark/explosig-connect)
 [![PyPI](https://img.shields.io/pypi/v/explosig-connect)](https://pypi.org/project/explosig-connect/)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/keller-mark/explosig-connect/blob/master/notebooks/colab-demo.ipynb)
 
 ## ExploSig Connect
 
