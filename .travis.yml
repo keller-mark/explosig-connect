@@ -8,7 +8,7 @@ script:
   - pip install .
 before_deploy:
   - pip install pdoc3
-  - pdoc --html --config show_source_code=False --force --output-dir docs explosig_connect
+  - pdoc --html --config show_source_code=False --config sort_identifiers=False --force --output-dir docs explosig_connect
 deploy:
   - provider: pages
     skip-cleanup: true

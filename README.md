@@ -58,8 +58,7 @@ pip install explosig-connect
 Build and install from the current directory.
 
 ```sh
-python setup.py sdist bdist_wheel
-pip install .
+python setup.py sdist bdist_wheel && pip install .
 ```
 
 Use the `hostname` parameter to specify a custom ExploSig instance.

@@ -11,7 +11,7 @@ class Connection:
     with functions for transforming and sending data.
     """
     
-    def post(self, data):
+    def _post(self, data):
         print(data) # TODO: for debugging, remove 
         print()
         payload = {
@@ -32,7 +32,7 @@ class Connection:
         if "Donor" in df.columns.values.tolist():
             df = df.rename(columns={"Donor": "donor_id"})
 
-        self.post({
+        self._post({
             "data": {
                 "data": {
                     "sample_meta": df.to_dict('records')
@@ -51,7 +51,7 @@ class Connection:
         mut_count_sum_max = int(df.sum(axis=1).max())
         df = df.reset_index()
 
-        self.post({
+        self._post({
             "data": {
                 "data": {
                     "mut_count": df.to_dict('records')
@@ -73,7 +73,7 @@ class Connection:
 
         df.index = df.index.rename("sig_{}".format(mut_type))
 
-        self.post({
+        self._post({
             "data": {
                 "scales": {
                     "cat_{}".format(mut_type): df.columns.values.tolist()
@@ -81,7 +81,7 @@ class Connection:
             }
         })
 
-        self.post({
+        self._post({
             "data": {
                 "scales": {
                     "sig_{}".format(mut_type): df.index.values.tolist()
@@ -89,7 +89,7 @@ class Connection:
             }
         })
 
-        self.post({
+        self._post({
             "data": {
                 "data": dict([
                     ("sig_{}_{}".format(mut_type, sig_name), df.loc[sig_name, :].to_frame(name="sig_prob_{}".format(mut_type)).reset_index().rename(columns={'index': "cat_{}".format(mut_type)}).to_dict('records')) for sig_name in df.index.values.tolist()
@@ -105,7 +105,7 @@ class Connection:
         # df = samples x signatures
 
         if send_sigs:
-            self.post({
+            self._post({
                 "data": {
                     "scales": {
                         "sig_{}".format(mut_type): df.columns.values.tolist(),
@@ -126,7 +126,7 @@ class Connection:
         norm_df.index = norm_df.index.rename("sample_id")
         exp_norm_max = float(norm_df.max().max())
 
-        self.post({
+        self._post({
             "data": {
                 "data": {
                     "exposure_{}".format(mut_type): df.reset_index().to_dict('records'),
@@ -146,8 +146,7 @@ class Connection:
         Parameters
         ----------
         df : pandas.DataFrame
-            df = samples x clinical variables
-            Index consists of sample IDs. Columns are clinical variables.
+            Dataframe with index of sample IDs. Columns are clinical variables.
         types : dict, optional
             A dict mapping column names to data types ('continuous' or 'categorical'), by default {}
             If a column name is not found in the dict, it is assumed that 
@@ -170,7 +169,7 @@ class Connection:
         
         df.index = df.index.rename("sample_id")
   
-        self.post({
+        self._post({
             "data": {
                 "data": {
                     "clinical_variable_type": [ {'variable': col_name, 'type': var_type} for col_name, var_type in all_types.items() ]
@@ -192,7 +191,7 @@ class Connection:
             elif var_type == 'continuous':
                 all_scales[col_name] = [float(df[col_name].min()), float(df[col_name].max())]
 
-        self.post({
+        self._post({
             "data": {
                 "data": {
                     "clinical_data": df.reset_index().to_dict('records')
@@ -217,6 +216,14 @@ class ConfigConnection(Connection):
         self.config = self.get_config()
 
     def get_config(self):
+        """Get the current data configuration as a `dict`.
+        
+        Returns
+        -------
+        `dict`
+            A dictionary containing the selected samples, 
+            signatures, clinical variables, and genes.
+        """
         payload = {
             'session_id': self.session_id,
             'token': self.token,
@@ -225,7 +232,7 @@ class ConfigConnection(Connection):
         r.raise_for_status()
         return json.loads(r.json()['state'])['config']
     
-    def get_df(self, data_path, index_path, columns_path, index_col, mut_type=None, extra_config={}):
+    def _get_df(self, data_path, index_path, columns_path, index_col, mut_type=None, extra_config={}):
         payload = {
             'token': self.token,
             'projects': self.config['samples'],
@@ -259,8 +266,21 @@ class ConfigConnection(Connection):
 
         return df
     
-    def get_mutation_type_counts(self, mut_type):
-        return self.get_df(
+    def get_mutation_category_counts(self, mut_type):
+        """Get the mutation count dataframe (for a particular mutation type).
+        
+        Parameters
+        ----------
+        mut_type : `str`
+            One of {`'SBS'`, `'DBS'`, `'INDEL'`}.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and mutation categories on the columns.
+            Values are counts.
+        """
+        return self._get_df(
             '/plot-counts-by-category', 
             '/scale-samples', 
             '/scale-contexts', 
