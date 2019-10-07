@@ -8,7 +8,7 @@ script:
   - pip install .
 before_deploy:
   - pip install pdoc3
-  - pdoc --html --config show_source_code=False --config sort_identifiers=False --force --output-dir docs explosig_connect
+  - pdoc --html --config show_source_code=False --config sort_identifiers=False --config git_link_template="'https://github.com/keller-mark/explosig-connect/blob/{commit}/{path}#L{start_line}-L{end_line}'" --force --output-dir docs explosig_connect
 deploy:
   - provider: pages
     skip-cleanup: true
