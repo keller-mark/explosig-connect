@@ -6,6 +6,9 @@
 
 Helpers for sending data from a Python environment to [ExploSig](https://github.com/lrgr/explosig) (via [ExploSig Server](https://github.com/lrgr/explosig-server)) for web-based interactive visualization.
 
+- [Documentation](https://keller-mark.github.io/explosig-connect/)
+- [Open in Colab](https://colab.research.google.com/github/keller-mark/explosig-connect/blob/master/notebooks/colab-demo.ipynb)
+
 ### Installation
 
 ```sh
