@@ -270,6 +270,17 @@ class EmptyConnection(Connection):
         self.client_hostname = client_hostname
     
     def open(self, how='auto'):
+        """Attempts to open the session URL in a browser.
+        Calls `webbrowser.open` if `how == 'browser'`.
+        Outputs JavaScript if `how == 'nb_js'`.
+        Outputs HTML if `how == 'nb_link'`.
+        Otherwise, simply prints the URL.
+
+        Parameters
+        ----------
+        how : `str`, optional
+            One of {`'auto'`, `'nb_js'`, `'nb_link'`, `'browser'`}, by default `'auto'`
+        """
         if how == None:
             return
         assert(how in {'auto', 'nb_js', 'nb_link', 'browser'})
