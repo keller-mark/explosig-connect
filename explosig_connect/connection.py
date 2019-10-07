@@ -6,6 +6,10 @@ import pandas as pd
 from pandas.api.types import is_numeric_dtype
 
 class Connection:
+    """
+    Represents a connection to an ExploSig session,
+    with functions for transforming and sending data.
+    """
     
     def post(self, data):
         print(data) # TODO: for debugging, remove 
@@ -200,6 +204,9 @@ class Connection:
     
 
 class ConfigConnection(Connection):
+    """
+    Represents a connection to a previously-configured ExploSig session.
+    """
 
     def __init__(self, session_id, token, server_hostname, client_hostname):
         self.session_id = session_id
@@ -262,6 +269,9 @@ class ConfigConnection(Connection):
         )
 
 class EmptyConnection(Connection):
+    """
+    Represents a connection to an "empty" ExploSig session.
+    """
 
     def __init__(self, session_id, token, server_hostname, client_hostname):
         self.session_id = str(uuid.uuid4())[:8] if session_id == None else session_id[:8]
