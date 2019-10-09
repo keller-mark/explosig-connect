@@ -1,13 +1,13 @@
 [![Build Status](https://travis-ci.org/keller-mark/explosig-connect.svg?branch=master)](https://travis-ci.org/keller-mark/explosig-connect)
 [![PyPI](https://img.shields.io/pypi/v/explosig-connect)](https://pypi.org/project/explosig-connect/)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/keller-mark/explosig-connect/blob/master/notebooks/colab-demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/keller-mark/explosig-connect/blob/master/examples/colab-demo.ipynb)
 
 ## ExploSig Connect
 
 Helpers for sending data from a Python environment to [ExploSig](https://github.com/lrgr/explosig) (via [ExploSig Server](https://github.com/lrgr/explosig-server)) for web-based interactive visualization.
 
 - [Documentation](https://keller-mark.github.io/explosig-connect/)
-- [Open in Colab](https://colab.research.google.com/github/keller-mark/explosig-connect/blob/master/notebooks/colab-demo.ipynb)
+- [Open in Colab](https://colab.research.google.com/github/keller-mark/explosig-connect/blob/master/examples/colab-demo.ipynb)
 
 ### Installation
 
