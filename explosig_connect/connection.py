@@ -53,6 +53,13 @@ class Connection:
         })
     
     def send_mutation_type_counts(self, df):
+        """Send a dataframe containing mutation count values by mutation type to ExploSig.
+        
+        Parameters
+        ----------
+        df : `pandas.DataFrame`
+            Dataframe with index of sample IDs. Columns are mutation types (`SBS`, `DBS`, `INDEL`).
+        """
         # df = samples x [ SBS, DBS, INDEL ]
         df.index = df.index.rename("sample_id")
         mut_count_max = int(df.max().max())
@@ -72,6 +79,20 @@ class Connection:
         })
     
     def send_signatures(self, mut_type, df, prob_max=None):
+        """Send a dataframe containing signatures to ExploSig.
+        
+        Parameters
+        ----------
+        mut_type : `str`
+            The mutation type corresponding to this set of signatures (`SBS`, `DBS`, `INDEL`).
+        df : `pandas.DataFrame`
+            Dataframe with index of signature names. Columns are mutation categories (`A[C>A]A`, etc.).
+        prob_max : `None` or `'auto'`, optional
+            How to compute the maximum y-value of signature plots. 
+            If `None`, defaults to `0.2`. 
+            If `'auto'`, set to the maximum value in the matrix.
+            by default `None`
+        """
         assert(mut_type in {'SBS', 'DBS', 'INDEL'})
         # df = signatures x categories
         if prob_max == 'auto':
@@ -109,8 +130,20 @@ class Connection:
         })
     
     def send_exposures(self, mut_type, df, send_sigs=False):
+        """Send a dataframe containing exposures to ExploSig.
+        
+        Parameters
+        ----------
+        mut_type : `str`
+            The mutation type corresponding to this set of signatures (`SBS`, `DBS`, `INDEL`).
+        df : `pandas.DataFrame`
+            Dataframe with index of sample IDs. Columns are signature names.
+        send_sigs : `bool`, optional
+            Whether to also send signature names with the exposures.
+            Useful if not intending to call `send_signatures()`.
+            by default `False`
+        """
         assert(mut_type in {'SBS', 'DBS', 'INDEL'})
-        # df = samples x signatures
 
         if send_sigs:
             self._post({
