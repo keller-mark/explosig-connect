@@ -308,7 +308,7 @@ class ConfigConnection(Connection):
         return df
     
     def get_mutation_category_counts(self, mut_type):
-        """Get the mutation count dataframe (for a particular mutation type).
+        """Get the mutation count dataframe (for a particular mutation type) associated with the current config.
         
         Parameters
         ----------
@@ -328,6 +328,82 @@ class ConfigConnection(Connection):
             'sample_id', 
             mut_type=mut_type,
         )
+    
+    def get_clinical_data(self):
+        """Get the clinical data dataframe.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and clinical variables on the columns.
+        """
+        payload = {
+            'token': self.token,
+            'projects': self.config['samples']
+        }
+        data_path = '/plot-clinical'
+        r_data = requests.post(self.server_hostname + data_path, data=json.dumps(payload))
+        r_data.raise_for_status()
+
+        df = pd.DataFrame(data=r_data.json())
+        df = df.set_index("sample_id")
+
+        return df
+    
+    def _get_gene_data(self, data_path, alteration_type):
+        payload = {
+            'token': self.token,
+            'projects': self.config['samples']
+        }
+        index_path = '/scale-samples'
+        genes = self.config['genes']
+
+        r_index = requests.post(self.server_hostname + index_path, data=json.dumps(payload))
+        r_index.raise_for_status()
+
+        df = pd.DataFrame(data=[], index=r_index.json(), columns=genes)
+        for gene_id in genes:
+            r_data = requests.post(self.server_hostname + data_path, data=json.dumps({ **payload, 'gene_id': gene_id }))
+            r_data.raise_for_status()
+
+            gene_df = pd.DataFrame(data=r_data.json())
+            gene_df = gene_df.set_index("sample_id")
+            df[gene_id] = gene_df[alteration_type]
+
+        return df
+    
+    def get_gene_mutation_data(self):
+        """Get a dataframe containing mutation classes.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and genes on the columns.
+            Values are mutation classes.
+        """
+        return self._get_gene_data('/plot-gene-mut-track', 'mut_class')
+    
+    def get_gene_expression_data(self):
+        """Get a dataframe containing gene expression values.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and genes on the columns.
+            Values are gene expression classes.
+        """
+        return self._get_gene_data('/plot-gene-exp-track', 'gene_expression')
+    
+    def get_copy_number_data(self):
+        """Get a dataframe containing copy number values.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and genes on the columns.
+            Values are copy number classes.
+        """
+        return self._get_gene_data('/plot-gene-cna-track', 'copy_number')
 
 class EmptyConnection(Connection):
     """
@@ -377,4 +453,155 @@ class EmptyConnection(Connection):
         except ImportError:
             print("Open the ExploSig session here: {}".format(url))
             return
+    
+    def _get_df(self, data_path, index_path, columns_path, index_col, extra_config={}):
+        payload = {
+            'token': self.token,
+            **extra_config,
+        }
+        
+        r_data = requests.post(self.server_hostname + data_path, data=json.dumps(payload))
+        r_index = requests.post(self.server_hostname + index_path, data=json.dumps(payload))
+        r_columns = requests.post(self.server_hostname + columns_path, data=json.dumps(payload))
+
+        r_data.raise_for_status()
+        r_index.raise_for_status()
+        r_columns.raise_for_status()
+
+        df = pd.DataFrame(data=r_data.json())
+        df = df.set_index(index_col)
+
+        index_df = pd.DataFrame(data=[], index=r_index.json(), columns=r_columns.json())
+        df = df.reindex_like(index_df)
+
+        return df
+    
+    def get_mutation_category_counts(self, mut_type, projects):
+        """Get a mutation count dataframe (for a particular mutation type and set of sequencing projects).
+        
+        Parameters
+        ----------
+        mut_type : `str`
+            One of {`'SBS'`, `'DBS'`, `'INDEL'`}.
+        projects : `list` of `str`
+            A list of sample cohort IDs.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and mutation categories on the columns.
+            Values are counts.
+        """
+        extra_config = {
+            'mut_type': mut_type,
+            'projects': projects
+        }
+        return self._get_df(
+            '/plot-counts-by-category', 
+            '/scale-samples', 
+            '/scale-contexts', 
+            'sample_id', 
+            extra_config=extra_config,
+        )
+    
+    def get_clinical_data(self, projects):
+        """Get a clinical data dataframe (for a particular set of sequencing projects).
+        
+        Parameters
+        ----------
+        projects : `list` of `str`
+            A list of sample cohort IDs.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and clinical variables on the columns.
+        """
+        payload = {
+            'token': self.token,
+            'projects': projects
+        }
+        data_path = '/plot-clinical'
+        r_data = requests.post(self.server_hostname + data_path, data=json.dumps(payload))
+        r_data.raise_for_status()
+
+        df = pd.DataFrame(data=r_data.json())
+        df = df.set_index("sample_id")
+
+        return df
+    
+    def _get_gene_data(self, genes, projects, data_path, alteration_type):
+        payload = {
+            'token': self.token,
+            'projects': projects
+        }
+        index_path = '/scale-samples'
+
+        r_index = requests.post(self.server_hostname + index_path, data=json.dumps(payload))
+        r_index.raise_for_status()
+
+        df = pd.DataFrame(data=[], index=r_index.json(), columns=genes)
+        for gene_id in genes:
+            r_data = requests.post(self.server_hostname + data_path, data=json.dumps({ **payload, 'gene_id': gene_id }))
+            r_data.raise_for_status()
+
+            gene_df = pd.DataFrame(data=r_data.json())
+            gene_df = gene_df.set_index("sample_id")
+            df[gene_id] = gene_df[alteration_type]
+
+        return df
+    
+    def get_gene_mutation_data(self, genes, projects):
+        """Get a dataframe containing mutation classes (for a particular set of genes and set of sequencing projects).
+        
+        Parameters
+        ----------
+        genes : `list` of `str`
+            A list of gene IDs.
+        projects : `list` of `str`
+            A list of sample cohort IDs.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and genes on the columns.
+            Values are mutation classes.
+        """
+        return self._get_gene_data(genes, projects, '/plot-gene-mut-track', 'mut_class')
+    
+    def get_gene_expression_data(self, genes, projects):
+        """Get a dataframe containing gene expression values (for a particular set of genes and set of sequencing projects).
+        
+        Parameters
+        ----------
+        genes : `list` of `str`
+            A list of gene IDs.
+        projects : `list` of `str`
+            A list of sample cohort IDs.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and genes on the columns.
+            Values are gene expression classes.
+        """
+        return self._get_gene_data(genes, projects, '/plot-gene-exp-track', 'gene_expression')
+    
+    def get_copy_number_data(self, genes, projects):
+        """Get a dataframe containing copy number values (for a particular set of genes and set of sequencing projects).
+        
+        Parameters
+        ----------
+        genes : `list` of `str`
+            A list of gene IDs.
+        projects : `list` of `str`
+            A list of sample cohort IDs.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and genes on the columns.
+            Values are copy number classes.
+        """
+        return self._get_gene_data(genes, projects, '/plot-gene-cna-track', 'copy_number')
 
