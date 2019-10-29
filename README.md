@@ -1,13 +1,13 @@
-[![Build Status](https://travis-ci.org/keller-mark/explosig-connect.svg?branch=master)](https://travis-ci.org/keller-mark/explosig-connect)
+[![Build Status](https://travis-ci.org/lrgr/explosig-connect.svg?branch=master)](https://travis-ci.org/lrgr/explosig-connect)
 [![PyPI](https://img.shields.io/pypi/v/explosig-connect)](https://pypi.org/project/explosig-connect/)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/keller-mark/explosig-connect/blob/master/examples/colab-demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lrgr/explosig-connect/blob/master/examples/colab-demo.ipynb)
 
 ## ExploSig Connect
 
 Helpers for sending data from a Python environment to [ExploSig](https://github.com/lrgr/explosig) (via [ExploSig Server](https://github.com/lrgr/explosig-server)) for web-based interactive visualization.
 
-- [Documentation](https://keller-mark.github.io/explosig-connect/)
-- [Open in Colab](https://colab.research.google.com/github/keller-mark/explosig-connect/blob/master/examples/colab-demo.ipynb)
+- [Documentation](https://lrgr.github.io/explosig-connect/)
+- [Open in Colab](https://colab.research.google.com/github/lrgr/explosig-connect/blob/master/examples/colab-demo.ipynb)
 
 ### Installation
 
@@ -25,7 +25,7 @@ pip install explosig-connect
 >>> conn = connect(session_id)
 
 >>> # Obtain the SBS mutation counts matrix associated with the session.
->>> sbs_counts_df = conn.get_mutation_type_counts('SBS')
+>>> sbs_counts_df = conn.get_mutation_category_counts('SBS')
 
 >>> # You run some custom code to derive better signature exposures.
 >>> exposures_df = my_exposures_computation_method(sbs_counts_df)
@@ -44,7 +44,7 @@ pip install explosig-connect
 >>> conn = connect()
 
 >>> # Send an SBS mutation counts matrix to visualize.
->>> conn.send_mutation_type_counts('SBS', my_sbs_counts_df)
+>>> conn.send_mutation_category_counts('SBS', my_sbs_counts_df)
 
 >>> # Send an exposures matrix to visualize.
 >>> conn.send_exposures('SBS', my_sbs_exposures_df)

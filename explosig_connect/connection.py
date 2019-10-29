@@ -307,8 +307,30 @@ class ConfigConnection(Connection):
 
         return df
     
+    def get_mutation_type_counts(self):
+        """Get the counts by mutation type dataframe associated with the current config.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and mutation types (SBS, DBS, INDEL) on the columns.
+            Values are counts.
+        """
+        payload = {
+            'token': self.token,
+            'projects': self.config['samples']
+        }
+
+        data_path = '/plot-counts'
+        r_data = requests.post(self.server_hostname + data_path, data=json.dumps(payload))
+        r_data.raise_for_status()
+
+        df = pd.DataFrame(data=r_data.json())
+        df = df.set_index("sample_id")
+        return df
+    
     def get_mutation_category_counts(self, mut_type):
-        """Get the mutation count dataframe (for a particular mutation type) associated with the current config.
+        """Get the counts by mutation category dataframe (for a particular mutation type) associated with the current config.
         
         Parameters
         ----------
@@ -330,7 +352,7 @@ class ConfigConnection(Connection):
         )
     
     def get_clinical_data(self):
-        """Get the clinical data dataframe.
+        """Get the clinical data dataframe associated with the current config.
         
         Returns
         -------
@@ -373,7 +395,7 @@ class ConfigConnection(Connection):
         return df
     
     def get_gene_mutation_data(self):
-        """Get a dataframe containing mutation classes.
+        """Get a dataframe containing mutation classes associated with the current config.
         
         Returns
         -------
@@ -384,7 +406,7 @@ class ConfigConnection(Connection):
         return self._get_gene_data('/plot-gene-mut-track', 'mut_class')
     
     def get_gene_expression_data(self):
-        """Get a dataframe containing gene expression values.
+        """Get a dataframe containing gene expression values associated with the current config.
         
         Returns
         -------
@@ -395,7 +417,7 @@ class ConfigConnection(Connection):
         return self._get_gene_data('/plot-gene-exp-track', 'gene_expression')
     
     def get_copy_number_data(self):
-        """Get a dataframe containing copy number values.
+        """Get a dataframe containing copy number values associated with the current config.
         
         Returns
         -------
@@ -474,6 +496,33 @@ class EmptyConnection(Connection):
         index_df = pd.DataFrame(data=[], index=r_index.json(), columns=r_columns.json())
         df = df.reindex_like(index_df)
 
+        return df
+    
+    def get_mutation_type_counts(self, projects):
+        """Get the counts by mutation type dataframe associated with the current config.
+
+        Parameters
+        ----------
+        projects : `list` of `str`
+            A list of sample cohort IDs.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and mutation types (SBS, DBS, INDEL) on the columns.
+            Values are counts.
+        """
+        payload = {
+            'token': self.token,
+            'projects': projects
+        }
+
+        data_path = '/plot-counts'
+        r_data = requests.post(self.server_hostname + data_path, data=json.dumps(payload))
+        r_data.raise_for_status()
+
+        df = pd.DataFrame(data=r_data.json())
+        df = df.set_index("sample_id")
         return df
     
     def get_mutation_category_counts(self, mut_type, projects):
