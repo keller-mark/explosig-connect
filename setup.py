@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="explosig-connect",
-    version="0.0.3",
+    version="0.0.5",
     author="Mark Keller",
     description="Send data to ExploSig",
     long_description=long_description,

@@ -240,6 +240,82 @@ class Connection:
                 "scales": all_scales
             }
         })
+    
+    def _send_gene_data(self, df, alteration_type):
+        """Send a dataframe containing gene data for a specific alteration type.
+        
+        Parameters
+        ----------
+        df : `pandas.DataFrame`
+            Dataframe with index of sample IDs. Columns are gene IDs.
+        alteration_type : `str`
+            One of {`mut_class`, `gene_expression`, `copy_number`}.
+        """
+
+        assert(alteration_type in {'mut_class', 'gene_expression', 'copy_number'})
+
+        if alteration_type == 'mut_class':
+            alteration_prefix = 'gene_mut'
+        if alteration_type == 'gene_expression':
+            alteration_prefix = 'gene_exp'
+        if alteration_type == 'copy_number':
+            alteration_prefix = 'gene_cna'
+
+        df.index = df.index.rename("sample_id")
+
+        genes = df.columns.values.tolist()
+
+        self._post({
+            "data": {
+                "scales": {
+                    'gene_mut': genes,
+                    'gene_exp': genes,
+                    'gene_cna': genes
+                }
+            }
+        })
+
+        for gene in genes:
+            self._post({
+                "data": {
+                    "data": {
+                        "{}_{}".format(alteration_prefix, gene): (df[gene].astype(str)
+                            .to_frame().reset_index()
+                            .rename(columns={ gene: alteration_type })
+                            .to_dict('records'))
+                    }
+                }
+            })
+    
+    def send_gene_mutation_data(self, df):
+        """Send a dataframe containing gene mutation data.
+        
+        Parameters
+        ----------
+        df : `pandas.DataFrame`
+            Dataframe with index of sample IDs. Columns are gene IDs.
+        """
+        self._send_gene_data(df, 'mut_class')
+    
+    def send_gene_expression_data(self, df):
+        """Send a dataframe containing gene expression data.
+        
+        Parameters
+        ----------
+        df : `pandas.DataFrame`
+            Dataframe with index of sample IDs. Columns are gene IDs.
+        """
+        self._send_gene_data(df, 'gene_expression')
+    
+    def send_copy_number_data(self, df):
+        """Send a dataframe containing copy number data.
+        
+        Parameters
+        ----------
+        df : `pandas.DataFrame`
+            Dataframe with index of sample IDs. Columns are gene IDs.
+        """
+        self._send_gene_data(df, 'copy_number')
 
     
 

@@ -37,3 +37,10 @@ df = pd.DataFrame(index=["SA 01", "SA 02", "SA 03"], columns=["Diagnosis Age", "
     {"Diagnosis Age": 43, "Overall Survival": 400, "Sex": "Male"},
 ])
 conn.send_clinical_data(df)
+
+df = pd.DataFrame(index=["SA 01", "SA 02", "SA 03"], columns=["TP53", "ERCC2"], data=[
+    {"TP53": -1, "ERCC2": -2},
+    {"TP53": 0, "ERCC2": 0},
+    {"TP53": -1, "ERCC2": 2},
+])
+conn.send_copy_number_data(df)
