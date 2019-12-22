@@ -59,4 +59,5 @@ Build and install from the current directory.
 
 ```sh
 python setup.py sdist bdist_wheel && pip install .
+python -m twine upload dist/*
 ```
