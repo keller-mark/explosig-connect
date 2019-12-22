@@ -2,6 +2,7 @@ import requests
 import json
 import uuid
 import webbrowser
+import time
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
 
@@ -12,8 +13,8 @@ class Connection:
     """
     
     def _post(self, data):
-        print(data) # TODO: for debugging, remove 
-        print()
+        # print(data) # for debugging 
+        # print()
         payload = {
             'session_id': self.session_id,
             'token': self.token,
@@ -268,9 +269,7 @@ class Connection:
         self._post({
             "data": {
                 "scales": {
-                    'gene_mut': genes,
-                    'gene_exp': genes,
-                    'gene_cna': genes
+                    alteration_prefix: genes,
                 }
             }
         })
@@ -502,6 +501,49 @@ class ConfigConnection(Connection):
             Values are copy number classes.
         """
         return self._get_gene_data('/plot-gene-cna-track', 'copy_number')
+    
+    def get_exposures(self, mut_type, tricounts_method=None):
+        """Get the sample by signature exposures dataframe (for a particular mutation type) associated with the current config.
+        
+        Parameters
+        ----------
+        mut_type : `str`
+            One of {`'SBS'`, `'DBS'`, `'INDEL'`}.
+        tricounts_method: `str`, optional
+            One of {`'By Study'`, `'None'`}. 
+            Whether or not to normalize trinucleotides by frequency 
+            (based on sequencing strategy of each selected cohort).
+            By default, `'None'`.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and signature names on the columns.
+            Values are counts (exposures).
+        """
+        assert(mut_type in {'SBS', 'DBS', 'INDEL'})
+
+        payload = {
+            'token': self.token,
+            'projects': self.config['samples'],
+            'mut_type': mut_type,
+            'tricounts_method': (tricounts_method if tricounts_method != None else 'None'),
+        }
+
+        if mut_type == 'SBS':
+            payload['signatures'] = self.config['signaturesSbs']
+        elif mut_type == 'DBS':
+            payload['signatures'] = self.config['signaturesDbs']
+        elif mut_type == 'INDEL':
+            payload['signatures'] = self.config['signaturesIndel']
+
+        data_path = '/plot-exposures'
+        r_data = requests.post(self.server_hostname + data_path, data=json.dumps(payload))
+        r_data.raise_for_status()
+
+        df = pd.DataFrame(data=r_data.json())
+        df = df.set_index("sample_id")
+        return df
 
 class EmptyConnection(Connection):
     """
@@ -729,4 +771,45 @@ class EmptyConnection(Connection):
             Values are copy number classes.
         """
         return self._get_gene_data(genes, projects, '/plot-gene-cna-track', 'copy_number')
+    
+    def get_exposures(self, projects, signatures, mut_type, tricounts_method=None):
+        """Get the sample by signature exposures dataframe (for a particular mutation type) associated with the current config.
+        
+        Parameters
+        ----------
+        projects : `list` of `str`
+            A list of sample cohort IDs.
+        signatures : `list` of `str`
+            A list of signature names.
+        mut_type : `str`
+            One of {`'SBS'`, `'DBS'`, `'INDEL'`}.
+        tricounts_method: `str`, optional
+            One of {`'By Study'`, `'None'`}. 
+            Whether or not to normalize trinucleotides by frequency 
+            (based on sequencing strategy of each selected cohort).
+            By default, `'None'`.
+        
+        Returns
+        -------
+        `pandas.DataFrame`
+            A dataframe with sample IDs on the index and signature names on the columns.
+            Values are counts (exposures).
+        """
+        assert(mut_type in {'SBS', 'DBS', 'INDEL'})
+
+        payload = {
+            'token': self.token,
+            'projects': projects,
+            'mut_type': mut_type,
+            'signatures': signatures,
+            'tricounts_method': (tricounts_method if tricounts_method != None else 'None'),
+        }
+
+        data_path = '/plot-exposures'
+        r_data = requests.post(self.server_hostname + data_path, data=json.dumps(payload))
+        r_data.raise_for_status()
+
+        df = pd.DataFrame(data=r_data.json())
+        df = df.set_index("sample_id")
+        return df
 
