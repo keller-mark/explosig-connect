@@ -1,0 +1,12 @@
+name: explosig-case-study-env
+channels:
+- conda-forge
+- bioconda
+dependencies:
+- python>=3.6
+- scipy
+- pip
+- jupyter
+- ipykernel
+- pip:
+    - explosig-connect
