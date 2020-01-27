@@ -1,7 +1,6 @@
 import sys, os, numpy as np, pandas as pd
 
-sys.path.append(os.path.abspath('') + '/ardnmf/')
-from ardnmf import ARDNMF, PRIORS, EXP_PRIOR
+from ardnmf.ardnmf import ARDNMF, PRIORS, EXP_PRIOR
 
 from scipy.stats import iqr
 from tqdm.notebook import tqdm

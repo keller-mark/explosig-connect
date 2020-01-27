@@ -55,9 +55,15 @@ pip install explosig-connect
 
 ### Development
 
-Build and install from the current directory.
+Install for development (in editable mode):
 
 ```sh
-python setup.py sdist bdist_wheel && pip install .
+pip install -e .
+```
+
+Build and push to PyPI:
+
+```sh
+python setup.py sdist bdist_wheel
 python -m twine upload dist/*
 ```

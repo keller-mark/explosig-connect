@@ -1,0 +1,3 @@
+[submodule "case_studies/ardnmf"]
+	path = case_studies/ardnmf
+	url = https://github.com/lrgr/ardnmf.git
