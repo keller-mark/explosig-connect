@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.4" />
+<title>explosig_connect.connection API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>explosig_connect.connection</code></h1>
+</header>
+<section id="section-intro">
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L0-L814" class="git-link">Browse git</a></div>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="explosig_connect.connection.Connection"><code class="flex name class">
+<span>class <span class="ident">Connection</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>Represents a connection to an ExploSig session,
+with functions for transforming and sending data.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L9-L317" class="git-link">Browse git</a></div>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="explosig_connect.connection.ConfigConnection" href="#explosig_connect.connection.ConfigConnection">ConfigConnection</a></li>
+<li><a title="explosig_connect.connection.EmptyConnection" href="#explosig_connect.connection.EmptyConnection">EmptyConnection</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="explosig_connect.connection.Connection.send_sample_metadata"><code class="name flex">
+<span>def <span class="ident">send_sample_metadata</span></span>(<span>self, df)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Send a dataframe containing sample metadata values to ExploSig.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Dataframe with index of sample IDs. Columns are metadata variables.
+The following are recognized column names: {<code>Study</code>, <code>Donor</code>}.</dd>
+</dl></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L28-L54" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.Connection.send_mutation_type_counts"><code class="name flex">
+<span>def <span class="ident">send_mutation_type_counts</span></span>(<span>self, df)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Send a dataframe containing mutation count values by mutation type to ExploSig.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Dataframe with index of sample IDs. Columns are mutation types (<code>SBS</code>, <code>DBS</code>, <code>INDEL</code>).</dd>
+</dl></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L56-L80" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.Connection.send_signatures"><code class="name flex">
+<span>def <span class="ident">send_signatures</span></span>(<span>self, mut_type, df, prob_max=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Send a dataframe containing signatures to ExploSig.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>mut_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The mutation type corresponding to this set of signatures (<code>SBS</code>, <code>DBS</code>, <code>INDEL</code>).</dd>
+<dt><strong><code>df</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Dataframe with index of signature names. Columns are mutation categories (<code>A[C&gt;A]A</code>, etc.).</dd>
+<dt><strong><code>prob_max</code></strong> :&ensp;<code>None</code> or <code>'auto'</code>, optional</dt>
+<dd>How to compute the maximum y-value of signature plots.
+If <code>None</code>, defaults to <code>0.2</code>.
+If <code>'auto'</code>, set to the maximum value in the matrix.
+by default <code>None</code></dd>
+</dl></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L82-L131" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.Connection.send_exposures"><code class="name flex">
+<span>def <span class="ident">send_exposures</span></span>(<span>self, mut_type, df, send_sigs=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Send a dataframe containing exposures to ExploSig.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>mut_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The mutation type corresponding to this set of signatures (<code>SBS</code>, <code>DBS</code>, <code>INDEL</code>).</dd>
+<dt><strong><code>df</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Dataframe with index of sample IDs. Columns are signature names.</dd>
+<dt><strong><code>send_sigs</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to also send signature names with the exposures.
+Useful if not intending to call <code>send_signatures()</code>.
+by default <code>False</code></dd>
+</dl></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L133-L183" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.Connection.send_clinical_data"><code class="name flex">
+<span>def <span class="ident">send_clinical_data</span></span>(<span>self, df, types={}, scales={})</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Send a dataframe containing clinical data.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Dataframe with index of sample IDs. Columns are clinical variables.</dd>
+<dt><strong><code>types</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>A dict mapping column names to data types ('continuous' or 'categorical'), by default {}
+If a column name is not found in the dict, it is assumed that
+numeric columns are continuous and string columns are categorical.</dd>
+<dt><strong><code>scales</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>A dict mapping column names to scale domains, by default {}
+If a column name is not found in the dict, it is assumed that
+categorical column scales are simply a list of unique elements
+and continuous column scales are [min, max].</dd>
+</dl></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L185-L243" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.Connection.send_gene_mutation_data"><code class="name flex">
+<span>def <span class="ident">send_gene_mutation_data</span></span>(<span>self, df)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Send a dataframe containing gene mutation data.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Dataframe with index of sample IDs. Columns are gene IDs.</dd>
+</dl></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L289-L297" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.Connection.send_gene_expression_data"><code class="name flex">
+<span>def <span class="ident">send_gene_expression_data</span></span>(<span>self, df)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Send a dataframe containing gene expression data.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Dataframe with index of sample IDs. Columns are gene IDs.</dd>
+</dl></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L299-L307" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.Connection.send_copy_number_data"><code class="name flex">
+<span>def <span class="ident">send_copy_number_data</span></span>(<span>self, df)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Send a dataframe containing copy number data.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>Dataframe with index of sample IDs. Columns are gene IDs.</dd>
+</dl></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L309-L317" class="git-link">Browse git</a></div>
+</dd>
+</dl>
+</dd>
+<dt id="explosig_connect.connection.ConfigConnection"><code class="flex name class">
+<span>class <span class="ident">ConfigConnection</span></span>
+<span>(</span><span>session_id, token, server_hostname, client_hostname)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Represents a connection to a previously-configured ExploSig session.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L321-L546" class="git-link">Browse git</a></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="explosig_connect.connection.Connection" href="#explosig_connect.connection.Connection">Connection</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="explosig_connect.connection.ConfigConnection.get_config"><code class="name flex">
+<span>def <span class="ident">get_config</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get the current data configuration as a <code>dict</code>.</p>
+<h2 id="returns">Returns</h2>
+<p><code>dict</code>
+A dictionary containing the selected samples,
+signatures, clinical variables, and genes.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L334-L349" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.ConfigConnection.get_mutation_type_counts"><code class="name flex">
+<span>def <span class="ident">get_mutation_type_counts</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get the counts by mutation type dataframe associated with the current config.</p>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and mutation types (SBS, DBS, INDEL) on the columns.
+Values are counts.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L385-L405" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.ConfigConnection.get_mutation_category_counts"><code class="name flex">
+<span>def <span class="ident">get_mutation_category_counts</span></span>(<span>self, mut_type)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get the counts by mutation category dataframe (for a particular mutation type) associated with the current config.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>mut_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>One of {<code>'SBS'</code>, <code>'DBS'</code>, <code>'INDEL'</code>}.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and mutation categories on the columns.
+Values are counts.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L407-L427" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.ConfigConnection.get_clinical_data"><code class="name flex">
+<span>def <span class="ident">get_clinical_data</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get the clinical data dataframe associated with the current config.</p>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and clinical variables on the columns.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L429-L448" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.ConfigConnection.get_gene_mutation_data"><code class="name flex">
+<span>def <span class="ident">get_gene_mutation_data</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get a dataframe containing mutation classes associated with the current config.</p>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and genes on the columns.
+Values are mutation classes.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L472-L481" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.ConfigConnection.get_gene_expression_data"><code class="name flex">
+<span>def <span class="ident">get_gene_expression_data</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get a dataframe containing gene expression values associated with the current config.</p>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and genes on the columns.
+Values are gene expression classes.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L483-L492" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.ConfigConnection.get_copy_number_data"><code class="name flex">
+<span>def <span class="ident">get_copy_number_data</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get a dataframe containing copy number values associated with the current config.</p>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and genes on the columns.
+Values are copy number classes.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L494-L503" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.ConfigConnection.get_exposures"><code class="name flex">
+<span>def <span class="ident">get_exposures</span></span>(<span>self, mut_type, tricounts_method=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get the sample by signature exposures dataframe (for a particular mutation type) associated with the current config.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>mut_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>One of {<code>'SBS'</code>, <code>'DBS'</code>, <code>'INDEL'</code>}.</dd>
+<dt><strong><code>tricounts_method</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>One of {<code>'By Study'</code>, <code>'None'</code>}.
+Whether or not to normalize trinucleotides by frequency
+(based on sequencing strategy of each selected cohort).
+By default, <code>'None'</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and signature names on the columns.
+Values are counts (exposures).</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L505-L546" class="git-link">Browse git</a></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="explosig_connect.connection.Connection" href="#explosig_connect.connection.Connection">Connection</a></b></code>:
+<ul class="hlist">
+<li><code><a title="explosig_connect.connection.Connection.send_clinical_data" href="#explosig_connect.connection.Connection.send_clinical_data">send_clinical_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_copy_number_data" href="#explosig_connect.connection.Connection.send_copy_number_data">send_copy_number_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_exposures" href="#explosig_connect.connection.Connection.send_exposures">send_exposures</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_gene_expression_data" href="#explosig_connect.connection.Connection.send_gene_expression_data">send_gene_expression_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_gene_mutation_data" href="#explosig_connect.connection.Connection.send_gene_mutation_data">send_gene_mutation_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_mutation_type_counts" href="#explosig_connect.connection.Connection.send_mutation_type_counts">send_mutation_type_counts</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_sample_metadata" href="#explosig_connect.connection.Connection.send_sample_metadata">send_sample_metadata</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_signatures" href="#explosig_connect.connection.Connection.send_signatures">send_signatures</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="explosig_connect.connection.EmptyConnection"><code class="flex name class">
+<span>class <span class="ident">EmptyConnection</span></span>
+<span>(</span><span>session_id, token, server_hostname, client_hostname)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Represents a connection to an "empty" ExploSig session.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L548-L814" class="git-link">Browse git</a></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="explosig_connect.connection.Connection" href="#explosig_connect.connection.Connection">Connection</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="explosig_connect.connection.EmptyConnection.open"><code class="name flex">
+<span>def <span class="ident">open</span></span>(<span>self, how='auto')</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Attempts to open the session URL in a browser.
+Calls <code>webbrowser.open</code> if <code>how == 'browser'</code>.
+Outputs JavaScript if <code>how == 'nb_js'</code>.
+Outputs HTML if <code>how == 'nb_link'</code>.
+Otherwise, simply prints the URL.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>how</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>One of {<code>'auto'</code>, <code>'nb_js'</code>, <code>'nb_link'</code>, <code>'browser'</code>}, by default <code>'auto'</code></dd>
+</dl></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L559-L595" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.EmptyConnection.get_mutation_type_counts"><code class="name flex">
+<span>def <span class="ident">get_mutation_type_counts</span></span>(<span>self, projects)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get the counts by mutation type dataframe associated with the current config.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>projects</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of sample cohort IDs.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and mutation types (SBS, DBS, INDEL) on the columns.
+Values are counts.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L619-L644" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.EmptyConnection.get_mutation_category_counts"><code class="name flex">
+<span>def <span class="ident">get_mutation_category_counts</span></span>(<span>self, mut_type, projects)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get a mutation count dataframe (for a particular mutation type and set of sequencing projects).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>mut_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>One of {<code>'SBS'</code>, <code>'DBS'</code>, <code>'INDEL'</code>}.</dd>
+<dt><strong><code>projects</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of sample cohort IDs.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and mutation categories on the columns.
+Values are counts.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L646-L672" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.EmptyConnection.get_clinical_data"><code class="name flex">
+<span>def <span class="ident">get_clinical_data</span></span>(<span>self, projects)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get a clinical data dataframe (for a particular set of sequencing projects).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>projects</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of sample cohort IDs.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and clinical variables on the columns.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L674-L698" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.EmptyConnection.get_gene_mutation_data"><code class="name flex">
+<span>def <span class="ident">get_gene_mutation_data</span></span>(<span>self, genes, projects)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get a dataframe containing mutation classes (for a particular set of genes and set of sequencing projects).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>genes</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of gene IDs.</dd>
+<dt><strong><code>projects</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of sample cohort IDs.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and genes on the columns.
+Values are mutation classes.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L721-L737" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.EmptyConnection.get_gene_expression_data"><code class="name flex">
+<span>def <span class="ident">get_gene_expression_data</span></span>(<span>self, genes, projects)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get a dataframe containing gene expression values (for a particular set of genes and set of sequencing projects).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>genes</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of gene IDs.</dd>
+<dt><strong><code>projects</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of sample cohort IDs.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and genes on the columns.
+Values are gene expression classes.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L739-L755" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.EmptyConnection.get_copy_number_data"><code class="name flex">
+<span>def <span class="ident">get_copy_number_data</span></span>(<span>self, genes, projects)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get a dataframe containing copy number values (for a particular set of genes and set of sequencing projects).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>genes</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of gene IDs.</dd>
+<dt><strong><code>projects</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of sample cohort IDs.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and genes on the columns.
+Values are copy number classes.</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L757-L773" class="git-link">Browse git</a></div>
+</dd>
+<dt id="explosig_connect.connection.EmptyConnection.get_exposures"><code class="name flex">
+<span>def <span class="ident">get_exposures</span></span>(<span>self, projects, signatures, mut_type, tricounts_method=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Get the sample by signature exposures dataframe (for a particular mutation type) associated with the current config.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>projects</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of sample cohort IDs.</dd>
+<dt><strong><code>signatures</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>A list of signature names.</dd>
+<dt><strong><code>mut_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>One of {<code>'SBS'</code>, <code>'DBS'</code>, <code>'INDEL'</code>}.</dd>
+<dt><strong><code>tricounts_method</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>One of {<code>'By Study'</code>, <code>'None'</code>}.
+Whether or not to normalize trinucleotides by frequency
+(based on sequencing strategy of each selected cohort).
+By default, <code>'None'</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>pandas.DataFrame</code>
+A dataframe with sample IDs on the index and signature names on the columns.
+Values are counts (exposures).</p></section>
+<div class="git-link-div"><a href="https://github.com/keller-mark/explosig-connect/blob/6c320d023d4c30fb01ebfa0cde45c30dd8e4f706/explosig_connect/connection.py#L775-L814" class="git-link">Browse git</a></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="explosig_connect.connection.Connection" href="#explosig_connect.connection.Connection">Connection</a></b></code>:
+<ul class="hlist">
+<li><code><a title="explosig_connect.connection.Connection.send_clinical_data" href="#explosig_connect.connection.Connection.send_clinical_data">send_clinical_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_copy_number_data" href="#explosig_connect.connection.Connection.send_copy_number_data">send_copy_number_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_exposures" href="#explosig_connect.connection.Connection.send_exposures">send_exposures</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_gene_expression_data" href="#explosig_connect.connection.Connection.send_gene_expression_data">send_gene_expression_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_gene_mutation_data" href="#explosig_connect.connection.Connection.send_gene_mutation_data">send_gene_mutation_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_mutation_type_counts" href="#explosig_connect.connection.Connection.send_mutation_type_counts">send_mutation_type_counts</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_sample_metadata" href="#explosig_connect.connection.Connection.send_sample_metadata">send_sample_metadata</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_signatures" href="#explosig_connect.connection.Connection.send_signatures">send_signatures</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="explosig_connect" href="index.html">explosig_connect</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="explosig_connect.connection.Connection" href="#explosig_connect.connection.Connection">Connection</a></code></h4>
+<ul class="">
+<li><code><a title="explosig_connect.connection.Connection.send_sample_metadata" href="#explosig_connect.connection.Connection.send_sample_metadata">send_sample_metadata</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_mutation_type_counts" href="#explosig_connect.connection.Connection.send_mutation_type_counts">send_mutation_type_counts</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_signatures" href="#explosig_connect.connection.Connection.send_signatures">send_signatures</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_exposures" href="#explosig_connect.connection.Connection.send_exposures">send_exposures</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_clinical_data" href="#explosig_connect.connection.Connection.send_clinical_data">send_clinical_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_gene_mutation_data" href="#explosig_connect.connection.Connection.send_gene_mutation_data">send_gene_mutation_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_gene_expression_data" href="#explosig_connect.connection.Connection.send_gene_expression_data">send_gene_expression_data</a></code></li>
+<li><code><a title="explosig_connect.connection.Connection.send_copy_number_data" href="#explosig_connect.connection.Connection.send_copy_number_data">send_copy_number_data</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="explosig_connect.connection.ConfigConnection" href="#explosig_connect.connection.ConfigConnection">ConfigConnection</a></code></h4>
+<ul class="">
+<li><code><a title="explosig_connect.connection.ConfigConnection.get_config" href="#explosig_connect.connection.ConfigConnection.get_config">get_config</a></code></li>
+<li><code><a title="explosig_connect.connection.ConfigConnection.get_mutation_type_counts" href="#explosig_connect.connection.ConfigConnection.get_mutation_type_counts">get_mutation_type_counts</a></code></li>
+<li><code><a title="explosig_connect.connection.ConfigConnection.get_mutation_category_counts" href="#explosig_connect.connection.ConfigConnection.get_mutation_category_counts">get_mutation_category_counts</a></code></li>
+<li><code><a title="explosig_connect.connection.ConfigConnection.get_clinical_data" href="#explosig_connect.connection.ConfigConnection.get_clinical_data">get_clinical_data</a></code></li>
+<li><code><a title="explosig_connect.connection.ConfigConnection.get_gene_mutation_data" href="#explosig_connect.connection.ConfigConnection.get_gene_mutation_data">get_gene_mutation_data</a></code></li>
+<li><code><a title="explosig_connect.connection.ConfigConnection.get_gene_expression_data" href="#explosig_connect.connection.ConfigConnection.get_gene_expression_data">get_gene_expression_data</a></code></li>
+<li><code><a title="explosig_connect.connection.ConfigConnection.get_copy_number_data" href="#explosig_connect.connection.ConfigConnection.get_copy_number_data">get_copy_number_data</a></code></li>
+<li><code><a title="explosig_connect.connection.ConfigConnection.get_exposures" href="#explosig_connect.connection.ConfigConnection.get_exposures">get_exposures</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="explosig_connect.connection.EmptyConnection" href="#explosig_connect.connection.EmptyConnection">EmptyConnection</a></code></h4>
+<ul class="">
+<li><code><a title="explosig_connect.connection.EmptyConnection.open" href="#explosig_connect.connection.EmptyConnection.open">open</a></code></li>
+<li><code><a title="explosig_connect.connection.EmptyConnection.get_mutation_type_counts" href="#explosig_connect.connection.EmptyConnection.get_mutation_type_counts">get_mutation_type_counts</a></code></li>
+<li><code><a title="explosig_connect.connection.EmptyConnection.get_mutation_category_counts" href="#explosig_connect.connection.EmptyConnection.get_mutation_category_counts">get_mutation_category_counts</a></code></li>
+<li><code><a title="explosig_connect.connection.EmptyConnection.get_clinical_data" href="#explosig_connect.connection.EmptyConnection.get_clinical_data">get_clinical_data</a></code></li>
+<li><code><a title="explosig_connect.connection.EmptyConnection.get_gene_mutation_data" href="#explosig_connect.connection.EmptyConnection.get_gene_mutation_data">get_gene_mutation_data</a></code></li>
+<li><code><a title="explosig_connect.connection.EmptyConnection.get_gene_expression_data" href="#explosig_connect.connection.EmptyConnection.get_gene_expression_data">get_gene_expression_data</a></code></li>
+<li><code><a title="explosig_connect.connection.EmptyConnection.get_copy_number_data" href="#explosig_connect.connection.EmptyConnection.get_copy_number_data">get_copy_number_data</a></code></li>
+<li><code><a title="explosig_connect.connection.EmptyConnection.get_exposures" href="#explosig_connect.connection.EmptyConnection.get_exposures">get_exposures</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
