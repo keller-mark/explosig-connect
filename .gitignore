@@ -4,3 +4,4 @@ build/
 dist/
 docs/
 *.egg-info
+.ipynb_checkpoints/

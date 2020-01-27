@@ -1,12 +1,18 @@
-name: explosig-case-study-env
+name: explosig-connect-case-study-env
 channels:
 - conda-forge
 - bioconda
 dependencies:
 - python>=3.6
+- numpy
+- pandas
 - scipy
-- pip
+- scikit-learn
+- tqdm
+- nb_conda
 - jupyter
 - ipykernel
+- ipywidgets
+- pip
 - pip:
     - explosig-connect
