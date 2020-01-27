@@ -7,12 +7,7 @@ from tqdm.notebook import tqdm
 from collections import defaultdict
 
 # Adapted from https://github.com/cmsc828p-f18/Reproducing-Kim2016
-def extract_signatures_Kim2016(sbs96_df, usecached=False):
-    
-    if usecached:
-        exps_df = pd.read_csv('Kim2016_reproduced_exposures.tsv', sep='\t', index_col=0)
-        sigs_df = pd.read_csv('Kim2016_reproduced_signatures.tsv', sep='\t', index_col=0)
-        return sigs_df, exps_df
+def extract_signatures_Kim2016(sbs96_df):
     
     # Initialize ARDNMF hyperparameters
     n_init = 50 # default: 50 (following Kim, et al. paper)
